@@ -1,3 +1,20 @@
+
+import streamlit as st
+import pandas as pd
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+st.set_page_config(page_title="Movies Dashboard", layout="wide")
+
+@st.cache_resource
+def init_firestore():
+    if not firebase_admin._apps:
+        cred = credentials.Certificate(dict(st.secrets["firebase"]))
+        firebase_admin.initialize_app(cred)
+    return firestore.client()
+
+db = init_firestore()
+
 @st.cache_data
 def load_data():
     docs = db.collection("movies").stream()
