@@ -24,7 +24,11 @@ def load_data():
 
 df = load_data()
 
-search_text = st.sidebar.text_input("Titulo del filme")
+if st.sidebar.checkbox("Mostrar todos los filmes"):
+    st.header("Listado completo de filmes")
+    st.dataframe(df)
+
+search_text = st.sidebar.text_input("Título del filme")
 
 if st.sidebar.button("Buscar filmes"):
     if search_text:
