@@ -62,7 +62,7 @@ with st.sidebar.form("new_movie_form"):
     if submit:
         new_movie = {
             "name": Name,
-            "company" = Company,
+            "company" : Company,
             "director": director,
             "genre": genre
         }
