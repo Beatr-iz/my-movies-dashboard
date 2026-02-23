@@ -60,7 +60,7 @@ with st.sidebar.form("new_movie_form"):
     director = st.text_input("Director")
     rating = st.number_input("Rating", min_value=0.0, max_value=10.0)
 
-    submit = st.form_submit_button("Agregar")
+    submit = st.form_submit_button("Crear nuevo filme")
 
     if submit:
         new_movie = {
@@ -70,7 +70,7 @@ with st.sidebar.form("new_movie_form"):
             "rating": rating
         }
 
-        db.collection("movies").add(Nuevo_filme)
+        db.collection("movies").add(new_movie)
         st.success("Película agregada correctamente")
         st.cache_data.clear()
         st.return()
