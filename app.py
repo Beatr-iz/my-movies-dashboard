@@ -39,9 +39,6 @@ if st.sidebar.button("Buscar filmes"):
     else:
         st.warning("Por favor escribe un título para buscar")
 
-
-st.sidebar.header("Seleccionar director")
-
 director = st.sidebar.selectbox(
     "Seleccionar director",
     df["director"].dropna().unique()
@@ -55,19 +52,19 @@ if st.sidebar.button("Filtrar director"):
 st.sidebar.header("Nuevo filme")
 
 with st.sidebar.form("new_movie_form"):
-    title = st.text_input("Título")
-    genre = st.text_input("Género")
+    name = st.text_input("Name")
+    company = st.text_input("Company")
     director = st.text_input("Director")
-    rating = st.number_input("Rating", min_value=0.0, max_value=10.0)
+    genre = st.text_input("Genre")
 
     submit = st.form_submit_button("Crear nuevo filme")
 
     if submit:
         new_movie = {
-            "title": title,
-            "genre": genre,
+            "name": Name,
+            "company" = Company,
             "director": director,
-            "rating": rating
+            "genre": genre
         }
 
         db.collection("movies").add(new_movie)
