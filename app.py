@@ -20,13 +20,13 @@ def load_data():
     docs = db.collection("movies").stream()
     data = [doc.to_dict() for doc in docs]
     return pd.DataFrame(data)
-st.sidebar.header("Visualización")
+
 
 df = load_data()
 
-search_text = st.sidebar.text_input("Buscar por título")
+search_text = st.sidebar.text_input("Titulo del filme")
 
-if st.sidebar.button("Buscar"):
+if st.sidebar.button("Buscar filmes"):
     if search_text:
         filtered_df = df[df["title"].str.contains(search_text, case=False, na=False)]
         
@@ -37,21 +37,21 @@ if st.sidebar.button("Buscar"):
         st.warning("Por favor escribe un título para buscar")
 
 
-st.sidebar.header("Filtrar por director")
+st.sidebar.header("Seleccionar director")
 
 director = st.sidebar.selectbox(
-    "Selecciona un director",
+    "Seleccionar director",
     df["director"].dropna().unique()
 )
 
-if st.sidebar.button("Filtrar por director"):
+if st.sidebar.button("Filtrar director"):
     filtered_df = df[df["director"] == director]
     st.write(f"Total encontrados: {len(filtered_df)}")
     st.dataframe(filtered_df)
 
-st.header("Agregar nueva película")
+st.sidebar.header("Nuevo filme")
 
-with st.form("new_movie_form"):
+with st.sidebar.form("new_movie_form"):
     title = st.text_input("Título")
     genre = st.text_input("Género")
     director = st.text_input("Director")
@@ -69,3 +69,5 @@ with st.form("new_movie_form"):
 
         db.collection("movies").add(new_movie)
         st.success("Película agregada correctamente")
+        st.cache_data.clear()
+        st.return
