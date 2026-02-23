@@ -24,21 +24,23 @@ st.sidebar.header("Visualización")
 
 df = load_data()
 
-show_all = st.sidebar.checkbox("Mostrar todos los filmes")
+if st.sidebar.button("Filtrar por director"):
+    filtered_df = df[df["director"] == director]
+    st.write(f"Total encontrados: {len(filtered_df)}")
+    st.dataframe(filtered_df)
 
-if show_all:
-    st.header("Todos los filmes")
-    st.dataframe(df)
 
-st.sidebar.header("Buscar por título")
+search_text = st.sidebar.text_input("Buscar por título")
 
-search_title = st.sidebar.text_input("Título de la película")
-search_button = st.sidebar.button("Buscar")
-
-if search_button and search_title:
-    filtered = df[df["title"].str.contains(search_title, case=False, na=False)]
-    st.header("Resultados de búsqueda")
-    st.dataframe(filtered)
+if st.sidebar.button("Buscar"):
+    if search_text:
+        filtered_df = df[df["title"].str.contains(search_text, case=False, na=False)]
+        
+        st.header("Resultados de búsqueda")
+        st.write(f"Total encontrados: {len(filtered_df)}")
+        st.dataframe(filtered_df)
+    else:
+        st.warning("Por favor escribe un título para buscar")
 
 
 st.sidebar.header("Filtrar por director")
@@ -48,12 +50,10 @@ director = st.sidebar.selectbox(
     df["director"].dropna().unique()
 )
 
-filter_button = st.sidebar.button("Filtrar")
-
-if filter_button:
-    filtered_director = df[df["director"] == director]
-    st.header(f"Películas de {director}")
-    st.dataframe(filtered_director)
+if st.sidebar.button("Filtrar por director"):
+    filtered_df = df[df["director"] == director]
+    st.write(f"Total encontrados: {len(filtered_df)}")
+    st.dataframe(filtered_df)
 
 st.header("Agregar nueva película")
 
