@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import firebase_admin
@@ -71,7 +70,7 @@ with st.sidebar.form("new_movie_form"):
             "rating": rating
         }
 
-        db.collection("movies").add(new_movie)
+        db.collection("movies").add(Nuevo_filme)
         st.success("Película agregada correctamente")
         st.cache_data.clear()
         st.return()
