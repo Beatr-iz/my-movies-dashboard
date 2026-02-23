@@ -24,12 +24,6 @@ st.sidebar.header("Visualización")
 
 df = load_data()
 
-if st.sidebar.button("Filtrar por director"):
-    filtered_df = df[df["director"] == director]
-    st.write(f"Total encontrados: {len(filtered_df)}")
-    st.dataframe(filtered_df)
-
-
 search_text = st.sidebar.text_input("Buscar por título")
 
 if st.sidebar.button("Buscar"):
