@@ -73,4 +73,4 @@ with st.sidebar.form("new_movie_form"):
         db.collection("movies").add(new_movie)
         st.success("Película agregada correctamente")
         st.cache_data.clear()
-        st.return()
+        st.rerun()
